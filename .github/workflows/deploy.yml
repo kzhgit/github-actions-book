@@ -13,5 +13,5 @@ jobs:
         SLACK_COLOR: ${{ job.status }}
         MSG_MINIMAL: actions url, event
         SLACK_TITLE: 'Dev環境へのデプロイ結果'
-        SLACK_MESSAGE: "${{ job.status == 'success' && '成功しました:rocket:' || '失敗しました:x:' }} (Commit: ${{ github.sha }})"
+        SLACK_MESSAGE: "${{ job.status == 'success' && '成功しました:rocket:' || '失敗しました:x:' }} (${{ github.event.pull_request.html_url != '' && format('PR: <{0}|#{1}>', github.event.pull_request.html_url, github.event.pull_request.number) || format('コミット: <{0}/{1}/commit/{2}|{3}>', github.server_url, github.repository, github.sha, github.sha[0:7]) }})"
         SLACK_FOOTER: '${{ github.event.pull_request.html_url || github.event.head_commit.url }}'
