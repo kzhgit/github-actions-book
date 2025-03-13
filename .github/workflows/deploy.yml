@@ -15,4 +15,4 @@ jobs:
         SLACK_ICON: https://github.com/github.png?size=48
         SLACK_TITLE: 'Dev環境へのデプロイ結果'
         SLACK_MESSAGE: '${{ job.status == 'success' && '成功' || '失敗' }}しました。'
-        SLACK_FOOTER: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        SLACK_FOOTER: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
