@@ -11,7 +11,7 @@ jobs:
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_COLOR: ${{ job.status }}
-        MSG_MINIMAL: actions url,commit
+        MSG_MINIMAL: commit,actions url
         SLACK_TITLE: 'Dev環境へのデプロイ結果'
         SLACK_MESSAGE: "${{ job.status == 'success' && '成功しました:rocket:' || '失敗しました:x:' }}"
-        SLACK_FOOTER: '${{ github.event.pull_request.html_url }}'
+        SLACK_FOOTER: ''
