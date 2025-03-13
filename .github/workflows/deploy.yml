@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: Set short SHA
+      id: short_sha
+      run: echo "SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
@@ -13,5 +16,5 @@ jobs:
         SLACK_COLOR: ${{ job.status }}
         MSG_MINIMAL: actions url, event
         SLACK_TITLE: 'Dev環境へのデプロイ結果'
-        SLACK_MESSAGE: "${{ job.status == 'success' && '成功しました:rocket:' || '失敗しました:x:' }} (${{ github.event.pull_request.html_url != '' && format('PR: <{0}|#{1}>', github.event.pull_request.html_url, github.event.pull_request.number) || format('コミット: <{0}/{1}/commit/{2}|{3}>', github.server_url, github.repository, github.sha, format('{0}', github.sha).substring(0, 7)) }})"
+        SLACK_MESSAGE: "${{ job.status == 'success' && '成功しました:rocket:' || '失敗しました:x:' }} (${{ github.event.pull_request.html_url != '' && format('PR: <{0}|#{1}>', github.event.pull_request.html_url, github.event.pull_request.number) || format('コミット: <{0}/{1}/commit/{2}|{3}>', github.server_url, github.repository, github.sha, env.SHORT_SHA) }})"
         SLACK_FOOTER: '${{ github.event.pull_request.html_url || github.event.head_commit.url }}'
