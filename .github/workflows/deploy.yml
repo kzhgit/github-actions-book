@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'README.md'
   workflow_dispatch:
 
 name: Slack Notification Demo
@@ -17,6 +19,5 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_COLOR: ${{ job.status }}
         MSG_MINIMAL: commit,actions url
-        SLACK_TITLE: 'デプロイ結果'
         SLACK_MESSAGE: "Dev環境へのデプロイが${{ job.status == 'success' && '成功しました:mp_100:' || '失敗しました:x:' }}"
         SLACK_FOOTER: ${{ github.event_name == 'workflow_dispatch' && '手動実行によるデプロイ' || github.event.head_commit.message }}
