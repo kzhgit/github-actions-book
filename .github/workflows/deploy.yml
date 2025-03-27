@@ -1,4 +1,9 @@
-on: push
+on: 
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 name: Slack Notification Demo
 jobs:
   slackNotification:
@@ -14,4 +19,4 @@ jobs:
         MSG_MINIMAL: commit,actions url
         SLACK_TITLE: 'デプロイ結果'
         SLACK_MESSAGE: "Dev環境へのデプロイが${{ job.status == 'success' && '成功しました:mp_100:' || '失敗しました:x:' }}"
-        SLACK_FOOTER: ${{ github.event_name == 'workflow_dispatch' && '手動実行によるデプロイ' || format('コミット: {0}...', github.event.head_commit.message | slice(0, 50)) }}
+        SLACK_FOOTER: ${{ github.event_name == 'workflow_dispatch' && '手動実行によるデプロイ' || github.event.head_commit.message }}
