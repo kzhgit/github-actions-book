@@ -9,6 +9,10 @@ on:
 name: Slack Notification Demo
 jobs:
   slackNotification:
+    if: |
+      github.ref == 'refs/heads/main' && 
+      (!contains(github.event.head_commit.message, '[skip deploy]') || contains(github.event.head_commit.message, '[force deploy]'))
+
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
